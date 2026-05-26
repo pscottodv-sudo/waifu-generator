@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- Meta tag per Condivisione su WhatsApp/Social -->
+    <meta property="og:title" content="🌸 Waifu Gacha TV 🌸">
+    <meta property="og:description" content="Evoca la tua Waifu con stile TV giapponese.">
+    <meta property="og:image" content="https://i.imgur.com/8Q3Q2Bf.jpeg">
+    <meta property="og:type" content="website">
+    
+    <title>Waifu Gacha - NicoNico Style</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@800&family=Poppins:wght@400;600;800&display=swap');
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            margin: 0; padding: 0; min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            
+            /* Il caro vecchio sfondo pastello neutro della prima volta */
+            background: linear-gradient(135deg, #ffb6c1, #ffc0cb, #e6e6fa, #f08080);
+            background-size: 300% 300%;
+            animation: pastelFlow 6s ease infinite;
+            color: #fff;
+            overflow: hidden; /* Evita che i testi fluttuanti creino barre di scorrimento */
+        }
+
+        @keyframes pastelFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- EFFETTO TV GIAPPONESE / NICO NICO DOUGA --- */
+        .tv-chaos-layer {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0; overflow: hidden;
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+        }
+
+        /* Banner finto telegiornale */
+        .breaking-news {
+            position: absolute; top: 5%; left: -10px;
+            background: red; color: white; padding: 5px 20px;
+            font-weight: 900; font-size: 1.2rem; transform: rotate(-5deg);
+            box-shadow: 5px 5px 0px #000;
+            border: 3px solid #fff;
+            animation: pulseBanner 1s infinite alternate;
+            opacity: 0.8;
+        }
+
+        /* Scritte giganti verticali */
+        .vertical-text {
+            position: absolute; right: 5%; top: 20%;
+            writing-mode: vertical-rl; text-orientation: upright;
+            font-size: 3rem; font-weight: 900; color: rgba(255, 255, 255, 0.4);
+            text-shadow: 2px 2px 0px #ff1493, -2px -2px 0px #00ffff;
+        }
+
+        /* Testi scorrevoli tipo Danmaku (Commenti a schermo) */
+        .danmaku {
+            position: absolute; white-space: nowrap; font-weight: bold;
+            font-size: 1.5rem; color: rgba(255, 255, 255, 0.6);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            animation: flyRightToLeft linear infinite;
+        }
+
+        /* Stili e velocità personalizzate per i vari commenti */
+        .d1 { top: 15%; animation-duration: 8s; font-size: 2rem; color: #ffeb3b; }
+        .d2 { top: 30%; animation-duration: 12s; color: #00e5ff; font-size: 1.2rem; }
+        .d3 { top: 50%; animation-duration: 6s; font-size: 2.5rem; color: #ff5252; opacity: 0.4; }
+        .d4 { top: 70%; animation-duration: 10s; color: #69f0ae; }
+        .d5 { top: 85%; animation-duration: 14s; font-size: 1.8rem; color: #e040fb; }
+        .d6 { top: 40%; animation-duration: 9s; font-size: 1.5rem; }
+
+        @keyframes flyRightToLeft {
+            0% { transform: translateX(100vw); }
+            100% { transform: translateX(-150vw); }
+        }
+
+        @keyframes pulseBanner {
+            0% { transform: rotate(-5deg) scale(1); }
+            100% { transform: rotate(-5deg) scale(1.1); }
+        }
+        /* --- FINE EFFETTO TV --- */
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 24px; padding: 25px; width: 90%; max-width: 400px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            position: relative;
+            z-index: 10; /* L'interfaccia resta sempre sopra i testi fastidiosi */
+        }
+
+        .header { text-align: center; margin-bottom: 20px; }
+
+        .title {
+            font-size: 2.2rem; font-weight: 800; margin: 0;
+            background: linear-gradient(to right, #ff1493 0%, #ff69b4 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0px 4px 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .image-wrapper {
+            width: 100%; aspect-ratio: 4/5; border-radius: 14px;
+            background: rgba(0, 0, 0, 0.3); position: relative;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); overflow: hidden;
+            border: 3px solid #fff;
+        }
+
+        #waifu-img {
+            width: 100%; height: 100%; object-fit: cover; display: none;
+        }
+
+        .flash-effect { animation: flash 0.4s ease-out forwards; }
+        @keyframes flash {
+            0% { filter: brightness(2) contrast(1.5); transform: scale(1.05); }
+            100% { filter: brightness(1) contrast(1); transform: scale(1); }
+        }
+
+        .status-text {
+            position: absolute; font-weight: 800; font-size: 1.2rem; color: #fff;
+            animation: pulse 1s infinite alternate; text-shadow: 0 0 10px #ff1493;
+        }
+        @keyframes pulse { 0% { opacity: 0.6; } 100% { opacity: 1; } }
+
+        .controls {
+            width: 100%; margin-top: 20px; display: flex; flex-direction: column; gap: 12px;
+        }
+
+        button {
+            width: 100%; border: none; border-radius: 12px; padding: 16px;
+            font-family: inherit; font-size: 1.1rem; font-weight: 800;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+            transition: transform 0.1s; display: flex; justify-content: center; align-items: center; gap: 10px;
+        }
+
+        #btn-generate {
+            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%); color: white;
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.4); border: 2px solid #fff;
+        }
+
+        #btn-download {
+            background: rgba(255, 255, 255, 0.4); color: #ff1493; border: 2px solid #fff; display: none;
+            backdrop-filter: blur(5px);
+        }
+
+        button:active { transform: scale(0.96); }
+
+        #toast {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
+            background: #ff1493; color: #fff; padding: 12px 24px; border-radius: 50px;
+            font-size: 0.9rem; font-weight: 800; box-shadow: 0 10px 25px rgba(255, 20, 147, 0.5); border: 2px solid #fff;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1000;
+        }
+        #toast.show { transform: translateX(-50%) translateY(0); }
+    </style>
+</head>
+<body>
+
+    <!-- CAOS TV GIAPPONESE -->
+    <div class="tv-chaos-layer">
+        <div class="breaking-news">【速報】ワイフ接近中！</div>
+        <div class="vertical-text">超絶可愛い</div>
+        
+        <!-- Commenti volanti -->
+        <div class="danmaku d1">ｷﾀ━━━━(ﾟ∀ﾟ)━━━━!!</div>
+        <div class="danmaku d2">wwwwwwwwww草</div>
+        <div class="danmaku d3">俺の嫁！！！！！</div>
+        <div class="danmaku d4">神引きすぎるだろ</div>
+        <div class="danmaku d5">最高かよ (´；ω；｀)</div>
+        <div class="danmaku d6">注意：画面から離れて見てね</div>
+    </div>
+
+    <!-- UI PRINCIPALE -->
+    <div class="glass-card">
+        <div class="header">
+            <h1 class="title">Waifu Gacha</h1>
+        </div>
+
+        <div class="image-wrapper">
+            <div id="status" class="status-text">Pronto!</div>
+            <img id="waifu-img" src="" alt="Waifu">
+        </div>
+
+        <div class="controls">
+            <button id="btn-generate">✨ Evoca Waifu</button>
+            <button id="btn-download">💖 Salva in Galleria</button>
+        </div>
+    </div>
+
+    <div id="toast">✅ Immagine salvata!</div>
+
+    <script>
+        const btnGenerate = document.getElementById('btn-generate');
+        const btnDownload = document.getElementById('btn-download');
+        const imgElement = document.getElementById('waifu-img');
+        const statusText = document.getElementById('status');
+        const toast = document.getElementById('toast');
+        
+        let currentImageUrl = '';
+        let preloadedImageUrl = '';
+
+        function showToast(message) {
+            toast.innerText = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        async function fetchWaifuUrl() {
+            try {
+                const res = await fetch('https://nekos.best/api/v2/waifu');
+                const data = await res.json();
+                return data.results[0].url;
+            } catch (error) { return null; }
+        }
+
+        async function preloadNextImage() {
+            const url = await fetchWaifuUrl();
+            if (url) {
+                preloadedImageUrl = url;
+                new Image().src = preloadedImageUrl;
+            }
+        }
+
+        function displayImage(url) {
+            currentImageUrl = url;
+            imgElement.src = url;
+            
+            imgElement.onload = () => {
+                statusText.style.display = 'none';
+                imgElement.style.display = 'block';
+                
+                imgElement.classList.remove('flash-effect');
+                void imgElement.offsetWidth;
+                imgElement.classList.add('flash-effect');
+                
+                btnDownload.style.display = 'flex';
+                btnGenerate.innerText = '✨ Evoca di nuovo';
+            };
+        }
+
+        preloadNextImage();
+
+        btnGenerate.addEventListener('click', async () => {
+            if (preloadedImageUrl) {
+                displayImage(preloadedImageUrl);
+                preloadedImageUrl = ''; 
+                preloadNextImage();     
+            } else {
+                imgElement.style.display = 'none';
+                statusText.style.display = 'block';
+                statusText.innerText = 'Caricamento...';
+                const newUrl = await fetchWaifuUrl();
+                if (newUrl) { displayImage(newUrl); preloadNextImage(); } 
+                else { statusText.innerText = 'Errore di connessione'; }
+            }
+        });
+
+        btnDownload.addEventListener('click', async () => {
+            if (!currentImageUrl) return;
+            const originalText = btnDownload.innerText;
+            btnDownload.innerText = '⏳ Attendere...';
+            
+            try {
+                const response = await fetch(currentImageUrl);
+                const blob = await response.blob();
+                const blobUrl = window.URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = blobUrl;
+                a.download = 'Waifu_Gacha_' + Date.now() + '.jpg';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(blobUrl);
+                
+                btnDownload.innerText = originalText;
+                showToast('✅ Immagine salvata!');
+            } catch (error) {
+                btnDownload.innerText = originalText;
+                showToast('⚠️ Tieni premuto la foto per salvarla!');
+            }
+        });
+    </script>
+</body>
+</html>
